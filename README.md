@@ -1,4 +1,4 @@
-# The Blue Page
+# AJ’s Port
 
 AJ Kadri's vanilla HTML/CSS/JavaScript portfolio, served by a small Express app. The server also provides the OpenRouter-backed portfolio assistant without exposing the API key to the browser.
 
