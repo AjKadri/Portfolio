@@ -1,7 +1,8 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { once } = require("node:events");
-const { createApp, cleanHistory } = require("../server");
+const serverApp = require("../server");
+const { createApp, cleanHistory } = serverApp;
 
 async function withServer(app, run) {
   const server = app.listen(0);
@@ -13,6 +14,11 @@ async function withServer(app, run) {
     await new Promise((resolve) => server.close(resolve));
   }
 }
+
+test("exports the Express app for serverless runtimes", () => {
+  assert.equal(typeof serverApp, "function");
+  assert.equal(typeof serverApp.listen, "function");
+});
 
 test("serves the existing portfolio page", async () => {
   await withServer(createApp({ apiKey: "test" }), async (baseUrl) => {

@@ -178,11 +178,16 @@ function createApp(options = {}) {
   return app;
 }
 
+const app = createApp();
+
 if (require.main === module) {
   const port = Number(process.env.PORT) || 3000;
-  createApp().listen(port, () => {
+  app.listen(port, () => {
     console.log(`The Blue Page is running at http://localhost:${port}`);
   });
 }
 
-module.exports = { createApp, cleanHistory };
+// Vercel's CommonJS runtime expects the Express app itself as the default export.
+module.exports = app;
+module.exports.createApp = createApp;
+module.exports.cleanHistory = cleanHistory;
