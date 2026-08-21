@@ -77,6 +77,12 @@ function createApp(options = {}) {
   app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
   });
+  app.get("/favicon.svg", (req, res) => {
+    res.sendFile(path.join(__dirname, "favicon.svg"));
+  });
+  app.get("/apple-touch-icon.png", (req, res) => {
+    res.sendFile(path.join(__dirname, "apple-touch-icon.png"));
+  });
   app.use(
     "/images",
     express.static(path.join(__dirname, "images"), {

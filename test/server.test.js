@@ -33,6 +33,18 @@ test("serves the existing portfolio page", async () => {
   });
 });
 
+test("serves the favicon and Apple touch icon", async () => {
+  await withServer(createApp({ apiKey: "test-key" }), async (baseUrl) => {
+    const favicon = await fetch(`${baseUrl}/favicon.svg`);
+    const touchIcon = await fetch(`${baseUrl}/apple-touch-icon.png`);
+
+    assert.equal(favicon.status, 200);
+    assert.match(favicon.headers.get("content-type"), /image\/svg\+xml/);
+    assert.equal(touchIcon.status, 200);
+    assert.match(touchIcon.headers.get("content-type"), /image\/png/);
+  });
+});
+
 test("does not serve backend, data, or environment files", async () => {
   await withServer(createApp({ apiKey: "test" }), async (baseUrl) => {
     for (const file of ["/.env", "/.env.example", "/server.js", "/data/portfolio.js"]) {
