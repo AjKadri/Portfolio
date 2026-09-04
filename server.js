@@ -68,7 +68,7 @@ function createApp(options = {}) {
     res.set({
       "X-Content-Type-Options": "nosniff",
       "Referrer-Policy": "strict-origin-when-cross-origin",
-      "Content-Security-Policy": "frame-ancestors 'self' https://tweakcn.com",
+      "X-Frame-Options": "DENY",
     });
     next();
   });

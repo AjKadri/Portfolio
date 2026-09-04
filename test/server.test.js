@@ -33,15 +33,12 @@ test("serves the existing portfolio page", async () => {
   });
 });
 
-test("allows framing only from the site itself and TweakCN", async () => {
+test("denies framing and preserves the other security headers", async () => {
   await withServer(createApp({ apiKey: "test" }), async (baseUrl) => {
     const response = await fetch(baseUrl);
 
-    assert.equal(response.headers.get("x-frame-options"), null);
-    assert.equal(
-      response.headers.get("content-security-policy"),
-      "frame-ancestors 'self' https://tweakcn.com",
-    );
+    assert.equal(response.headers.get("x-frame-options"), "DENY");
+    assert.equal(response.headers.get("content-security-policy"), null);
     assert.equal(response.headers.get("x-content-type-options"), "nosniff");
     assert.equal(response.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
   });
