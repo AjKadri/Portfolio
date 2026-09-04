@@ -33,6 +33,20 @@ test("serves the existing portfolio page", async () => {
   });
 });
 
+test("allows framing only from the site itself and TweakCN", async () => {
+  await withServer(createApp({ apiKey: "test" }), async (baseUrl) => {
+    const response = await fetch(baseUrl);
+
+    assert.equal(response.headers.get("x-frame-options"), null);
+    assert.equal(
+      response.headers.get("content-security-policy"),
+      "frame-ancestors 'self' https://tweakcn.com",
+    );
+    assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+    assert.equal(response.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
+  });
+});
+
 test("serves the favicon and Apple touch icon", async () => {
   await withServer(createApp({ apiKey: "test-key" }), async (baseUrl) => {
     const favicon = await fetch(`${baseUrl}/favicon.svg`);
