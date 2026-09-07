@@ -119,6 +119,9 @@ test("proxies a constrained portfolio conversation without returning the key", a
       assert.doesNotMatch(body, /private-test-key/);
       assert.equal(upstreamRequest.url, "https://openrouter.ai/api/v1/chat/completions");
       assert.equal(upstreamRequest.options.headers.Authorization, "Bearer private-test-key");
+      const requestBody = JSON.parse(upstreamRequest.options.body);
+      assert.equal(requestBody.model, "openai/gpt-4.1-mini");
+      assert.match(requestBody.messages[0].content, /Return only the final answer/);
       assert.match(upstreamRequest.options.body, /Campaign Watcher/);
     },
   );

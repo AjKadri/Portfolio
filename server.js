@@ -5,7 +5,7 @@ const path = require("node:path");
 const { buildSystemPrompt } = require("./data/portfolio");
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const DEFAULT_MODEL = "openrouter/free";
+const DEFAULT_MODEL = "openai/gpt-4.1-mini";
 const MAX_MESSAGE_LENGTH = 500;
 const MAX_HISTORY_MESSAGES = 8;
 const REQUEST_TIMEOUT_MS = 20_000;
