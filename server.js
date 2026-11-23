@@ -15,7 +15,6 @@ const RESEND_URL = "https://api.resend.com/emails";
 const CONTACT_RATE_LIMIT_MAX = 5;
 const CONTACT_LIMITS = { name: 80, contact: 120, type: 40, budget: 40, message: 2000 };
 const CONTACT_TYPES = ["Business website", "Landing page", "Web app / dashboard", "Redesign", "Hiring / role", "Something else"];
-const CONTACT_BUDGETS = ["Under ₦300k", "₦300k – ₦1M", "₦1M+", "USD project", "Not sure yet"];
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -37,7 +36,6 @@ function parseContact(body = {}) {
     return { error: "Add your name, a way to reach you, and a few words about the project." };
   }
   if (data.type && !CONTACT_TYPES.includes(data.type)) data.type = "Something else";
-  if (data.budget && !CONTACT_BUDGETS.includes(data.budget)) data.budget = "Not sure yet";
   return { data };
 }
 
