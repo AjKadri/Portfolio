@@ -139,3 +139,39 @@ test("history accepts only compact user and assistant text messages", () => {
     { role: "assistant", content: "hi" },
   ]);
 });
+
+test("contact form validates, ignores bots, and emails via Resend", async () => {
+  const calls = [];
+  const fetchImpl = async (url, init) => {
+    calls.push({ url, body: JSON.parse(init.body) });
+    return { ok: true, json: async () => ({ id: "x" }) };
+  };
+  const app = createApp({ apiKey: "t", resendKey: "rk", contactTo: "inbox@example.com", fetchImpl });
+  await withServer(app, async (baseUrl) => {
+    const post = (body) =>
+      fetch(`${baseUrl}/api/contact`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+
+    assert.equal((await post({ name: "A" })).status, 400);
+    assert.equal((await post({ name: "Bot", contact: "b@b.co", message: "spam spam spam", website: "x" })).status, 200);
+    assert.equal(calls.length, 0);
+
+    const ok = await post({ name: "Ada <b>", contact: "ada@shop.ng", type: "Landing page", budget: "₦1M+", message: "Need a site for my shop." });
+    assert.equal(ok.status, 200);
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].url, "https://api.resend.com/emails");
+    assert.deepEqual(calls[0].body.to, ["inbox@example.com"]);
+    assert.equal(calls[0].body.reply_to, "ada@shop.ng");
+    assert.match(calls[0].body.html, /Ada &lt;b&gt;/);
+  });
+});
+
+test("contact form reports when email is not configured", async () => {
+  const app = createApp({ apiKey: "t", resendKey: "", contactTo: "" });
+  await withServer(app, async (baseUrl) => {
+    const res = await fetch(`${baseUrl}/api/contact`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: "A", contact: "0803", message: "Hello there, a site please" }),
+    });
+    assert.equal(res.status, 503);
+  });
+});

@@ -11,6 +11,35 @@ const MAX_HISTORY_MESSAGES = 8;
 const REQUEST_TIMEOUT_MS = 20_000;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 15;
+const RESEND_URL = "https://api.resend.com/emails";
+const CONTACT_RATE_LIMIT_MAX = 5;
+const CONTACT_LIMITS = { name: 80, contact: 120, type: 40, budget: 40, message: 2000 };
+const CONTACT_TYPES = ["Business website", "Landing page", "Web app / dashboard", "Redesign", "Hiring / role", "Something else"];
+const CONTACT_BUDGETS = ["Under ₦300k", "₦300k – ₦1M", "₦1M+", "USD project", "Not sure yet"];
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
+function cleanField(value, max) {
+  return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+
+function parseContact(body = {}) {
+  const data = {
+    name: cleanField(body.name, CONTACT_LIMITS.name),
+    contact: cleanField(body.contact, CONTACT_LIMITS.contact),
+    type: cleanField(body.type, CONTACT_LIMITS.type),
+    budget: cleanField(body.budget, CONTACT_LIMITS.budget),
+    message: cleanField(body.message, CONTACT_LIMITS.message),
+  };
+  if (!data.name || !data.contact || data.message.length < 10) {
+    return { error: "Add your name, a way to reach you, and a few words about the project." };
+  }
+  if (data.type && !CONTACT_TYPES.includes(data.type)) data.type = "Something else";
+  if (data.budget && !CONTACT_BUDGETS.includes(data.budget)) data.budget = "Not sure yet";
+  return { data };
+}
 
 function cleanHistory(history) {
   if (!Array.isArray(history)) return [];
@@ -30,7 +59,7 @@ function cleanHistory(history) {
     .filter(({ content }) => content.length > 0);
 }
 
-function createRateLimiter() {
+function createRateLimiter(max = RATE_LIMIT_MAX, message = "Too many questions at once. Please wait a few minutes and try again.") {
   const clients = new Map();
 
   return (req, res, next) => {
@@ -44,11 +73,9 @@ function createRateLimiter() {
     }
 
     record.count += 1;
-    if (record.count > RATE_LIMIT_MAX) {
+    if (record.count > max) {
       res.set("Retry-After", Math.ceil((record.resetAt - now) / 1000));
-      return res.status(429).json({
-        error: "Too many questions at once. Please wait a few minutes and try again.",
-      });
+      return res.status(429).json({ error: message });
     }
 
     return next();
@@ -61,6 +88,9 @@ function createApp(options = {}) {
   const apiKey = options.apiKey ?? process.env.OPENROUTER_API_KEY;
   const model = options.model || process.env.OPENROUTER_MODEL || DEFAULT_MODEL;
   const siteUrl = options.siteUrl || process.env.SITE_URL || "http://localhost:3000";
+  const resendKey = options.resendKey ?? process.env.RESEND_API_KEY;
+  const contactTo = options.contactTo ?? process.env.CONTACT_TO_EMAIL;
+  const contactFrom = options.contactFrom || process.env.CONTACT_FROM_EMAIL || "Portfolio <onboarding@resend.dev>";
 
   app.disable("x-powered-by");
   app.set("trust proxy", 1);
@@ -82,6 +112,11 @@ function createApp(options = {}) {
   });
   app.get("/apple-touch-icon.png", (req, res) => {
     res.sendFile(path.join(__dirname, "apple-touch-icon.png"));
+  });
+  app.get("/cv.pdf", (req, res) => {
+    res.sendFile(path.join(__dirname, "cv", "AJ-Kadri-CV.pdf"), (error) => {
+      if (error && !res.headersSent) res.status(404).json({ error: "CV not available." });
+    });
   });
   app.use(
     "/images",
@@ -171,6 +206,59 @@ function createApp(options = {}) {
     }
   });
 
+  app.post(
+    "/api/contact",
+    createRateLimiter(CONTACT_RATE_LIMIT_MAX, "Too many messages. Please wait a few minutes and try again."),
+    async (req, res) => {
+      res.set("Cache-Control", "no-store");
+      // Honeypot: real visitors never fill this hidden field.
+      if (cleanField(req.body?.website, 200)) return res.json({ ok: true });
+
+      const { data, error } = parseContact(req.body);
+      if (error) return res.status(400).json({ error });
+
+      if (!resendKey || !contactTo) {
+        return res.status(503).json({ error: "The contact form is not set up yet. Please try again later." });
+      }
+
+      const looksLikeEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.contact);
+      const rows = [
+        ["Name", data.name],
+        ["Contact", data.contact],
+        ["Project", data.type || "Not specified"],
+        ["Budget", data.budget || "Not specified"],
+      ]
+        .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#64748b">${k}</td><td>${escapeHtml(v)}</td></tr>`)
+        .join("");
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+      try {
+        const response = await fetchImpl(RESEND_URL, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            from: contactFrom,
+            to: [contactTo],
+            ...(looksLikeEmail ? { reply_to: data.contact } : {}),
+            subject: `New enquiry: ${data.type || "Project"} — ${data.name}`,
+            html: `<table>${rows}</table><p style="white-space:pre-wrap">${escapeHtml(data.message)}</p>`,
+            text: `Name: ${data.name}\nContact: ${data.contact}\nProject: ${data.type}\nBudget: ${data.budget}\n\n${data.message}`,
+          }),
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          return res.status(502).json({ error: "Your message could not be sent just now. Please try again." });
+        }
+        return res.json({ ok: true });
+      } catch {
+        return res.status(502).json({ error: "Your message could not be sent just now. Please try again." });
+      } finally {
+        clearTimeout(timeout);
+      }
+    },
+  );
+
   app.use((error, req, res, next) => {
     if (error?.type === "entity.too.large") {
       return res.status(413).json({ error: "That request is too large." });
@@ -197,3 +285,4 @@ if (require.main === module) {
 module.exports = app;
 module.exports.createApp = createApp;
 module.exports.cleanHistory = cleanHistory;
+module.exports.parseContact = parseContact;

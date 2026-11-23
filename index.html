@@ -3,27 +3,27 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>AJ Kadri Portfolio</title>
+		<title>AJ Kadri — Web Developer in Lagos</title>
 		<meta
 			name="description"
-			content="Computer Science graduate and software developer in Lagos, building clean interfaces and useful applications with JavaScript, Node.js and React."
+			content="AJ Kadri designs and builds fast, good-looking websites and web apps for businesses, from landing pages to full products. Based in Lagos."
 		/>
-		<link rel="canonical" href="https://ajkadri.vercel.app/" />
+		<link rel="canonical" href="https://ajkadri.dev/" />
 		<meta name="theme-color" content="#2563eb" />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="AJ Kadri" />
-		<meta property="og:url" content="https://ajkadri.vercel.app/" />
-		<meta property="og:title" content="AJ Kadri — Software Developer" />
+		<meta property="og:url" content="https://ajkadri.dev/" />
+		<meta property="og:title" content="AJ Kadri — Web Developer" />
 		<meta
 			property="og:description"
-			content="I build things with code. Mostly clean interfaces, useful applications, and solutions to problems I can't stop thinking about."
+			content="Websites and web apps that make you look the part. See the live work and start a project."
 		/>
 		<meta
 			property="og:image"
-			content="https://ajkadri.vercel.app/images/og-card.jpg"
+			content="https://ajkadri.dev/images/og-card.jpg"
 		/>
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
@@ -34,14 +34,14 @@
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:creator" content="@web3aj_" />
-		<meta name="twitter:title" content="AJ Kadri — Software Developer" />
+		<meta name="twitter:title" content="AJ Kadri — Web Developer" />
 		<meta
 			name="twitter:description"
-			content="I build things with code. Mostly clean interfaces, useful applications, and solutions to problems I can't stop thinking about."
+			content="Websites and web apps that make you look the part. See the live work and start a project."
 		/>
 		<meta
 			name="twitter:image"
-			content="https://ajkadri.vercel.app/images/og-card.jpg"
+			content="https://ajkadri.dev/images/og-card.jpg"
 		/>
 		<meta
 			name="twitter:image:alt"
@@ -732,6 +732,47 @@
 				white-space: nowrap;
 				border: 0;
 			}
+			.services { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); margin-bottom: 70px; }
+			.service { padding: 26px 22px 30px 0; border-right: 1px solid var(--line); }
+			.service + .service { padding-left: 22px; }
+			.service:last-child { border-right: 0; }
+			.service small { font: 10px "DM Mono", monospace; color: var(--blue); }
+			.service h3 { font-size: 20px; letter-spacing: -0.03em; margin: 14px 0 8px; }
+			.service p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--muted); }
+			.poster { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: var(--poster, linear-gradient(135deg,#1e3a8a,#2563eb)); }
+			.poster b { font-size: clamp(48px, 10vw, 140px); letter-spacing: -0.07em; color: rgba(255,255,255,0.14); }
+			.project-visual img, .project-visual video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+			.project-visual video { transition: transform 0.5s ease; }
+			.event { color: var(--blue); border-color: #93c5fd; }
+			.also { margin: 28px 0 0; font-size: 14px; color: var(--muted); }
+			.also a { color: var(--blue); }
+			.contact h2 { margin: 18px 0 16px; }
+			.cform { display: grid; gap: 14px; }
+			.cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+			.cform label { display: grid; gap: 6px; font: 10px "DM Mono", monospace; color: var(--muted); letter-spacing: 0.04em; }
+			.cform input, .cform select, .cform textarea { border: 1px solid var(--line); background: var(--white); color: var(--text); padding: 12px; font: 15px "DM Sans", sans-serif; border-radius: 0; width: 100%; }
+			.cform textarea { resize: vertical; }
+			.cform :focus { outline: 2px solid #93c5fd; outline-offset: 1px; }
+			.cform .hp { position: absolute; left: -9999px; }
+			.cfoot { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+			.cfoot .btn { cursor: pointer; font: 13px "DM Sans", sans-serif; padding: 13px 18px; }
+			.cfoot .btn:disabled { opacity: 0.6; cursor: wait; }
+			.cstatus { font: 11px "DM Mono", monospace; color: var(--muted); }
+			.cstatus.ok { color: #15803d; } .cstatus.err { color: #b91c1c; }
+			.hire { display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; border: 1px solid var(--line); padding: 34px 40px; margin: -70px 0 105px; background: var(--white); }
+			.hire h3 { font-size: 26px; letter-spacing: -0.04em; margin: 8px 0 0; }
+			.has-media .project-overlay { display: none; }
+			.h1-accent { color: var(--blue); }
+			.btn[hidden] { display: none; }
+			.hire-links { display: flex; gap: 10px; flex-wrap: wrap; }
+			@media (max-width: 760px) {
+				.services { grid-template-columns: 1fr 1fr; }
+				.service, .service + .service { padding: 22px 14px 24px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+				.service:nth-child(odd) { border-right: 1px solid var(--line); }
+				.service:nth-child(even) { padding-left: 14px; }
+				.cgrid { grid-template-columns: 1fr; }
+				.hire { padding: 26px; margin: -50px 0 80px; }
+			}
 			@media (max-width: 760px) {
 				.page {
 					padding: 0 18px;
@@ -855,27 +896,23 @@
 				<a class="brand" href="#top"><span class="sq"></span>AJ KADRI</a>
 				<div class="navlinks" id="navlinks">
 					<a href="#work">WORK</a
-					><a href="#about">ABOUT</a><a href="#contact">CONTACT</a>
+					><a href="#about">ABOUT</a><a href="#hire">HIRING</a><a href="#contact">START A PROJECT</a>
 				</div>
 				<button class="menu" id="menu">MENU</button>
 			</nav>
 			<main id="top">
 				<section class="hero">
 					<div>
-						<div class="label">AJ KADRI / SOFTWARE DEVELOPER / LAGOS</div>
-						<h1>I Build Things with Code.</h1>
+						<div class="label">AJ KADRI / WEB DEVELOPER / LAGOS</div>
+						<h1>I Build Things with Code. <span class="h1-accent">Yours could be next.</span></h1>
 						<p>
-							Mostly clean interfaces, useful applications,
-                            and solutions to problems I can’t stop thinking about.
+							Mostly clean interfaces, useful applications, and solutions to
+							problems I can’t stop thinking about.
 						</p>
 						<div class="actions">
-							<a class="btn primary" href="#work">View my work</a
-							><a class="btn" href="#contact">Contact me</a
-							><a class="btn" href="https://github.com/AjKadri" target="_blank"
-								>GitHub ↗</a
-							><a class="btn" href="https://x.com/web3aj_" target="_blank"
-								>X ↗</a
-							>
+							<a class="btn primary" href="#contact">Start a project</a
+							><a class="btn" href="#work">See my work</a
+							><a class="btn" href="#hire">Hiring? ↗</a>
 						</div>
 					</div>
 					<div class="profile">
@@ -883,308 +920,100 @@
 							<img src="./images/aj.jpg" alt="AJ Kadri" width="900" height="908" />
 						</div>
 						<div class="caption">
-							<span>AJ / 2026</span><span>PROFILE</span>
+							<span>AJ / 2026</span><span>AVAILABLE FOR PROJECTS</span>
 						</div>
 					</div>
+				</section>
+				<section class="services" aria-label="What I build">
+					<div class="service"><small>01</small><h3>Business websites</h3><p>For shops, brands, restaurants and services that need to look established online.</p></div>
+					<div class="service"><small>02</small><h3>Landing pages</h3><p>One focused page for a launch, an event or a product, built to get the click.</p></div>
+					<div class="service"><small>03</small><h3>Web apps &amp; dashboards</h3><p>Logins, data, payments and APIs. Real products, not just pretty screens.</p></div>
+					<div class="service"><small>04</small><h3>Redesigns</h3><p>Your current site, rebuilt to be faster, cleaner and better on phones.</p></div>
 				</section>
 				<div class="intro-line">
 					<span><span class="sq"></span>01 / SELECTED WORK</span
-					><span>REAL PROJECTS, NO INVENTED METRICS</span>
+					><span>SHIPPED, LIVE, CLICKABLE</span>
 				</div>
 				<section class="section" id="work">
 					<div class="section-head">
-						<h2 class="section-title">My Work.</h2>
+						<h2 class="section-title">Selected Work.</h2>
 						<p class="section-desc">
-							A simple record of things I've actually built.
+							Recent products I designed and built end to end: interface,
+							backend and deployment. Each one is live.
 						</p>
 					</div>
-					<div class="work-list">
-						<article class="work">
-							<div class="work-head">
-								<div class="number">01</div>
-								<div>
-									<h3 class="work-title">Cryptex</h3>
-									<p class="work-desc">
-										A crypto dashboard built around live market data, search,
-										watchlists and readable market information.
-									</p>
-								</div>
-								<div class="year">2026</div>
-							</div>
-							<div class="screenshot">
-								<div class="project-visual">
-									<img
-										src="./images/cryptex.jpg"
-										width="1400"
-										height="825"
-										alt="Cryptex cryptocurrency dashboard"
-										loading="lazy"
-									/><span class="project-number">01 / 04</span
-									><span class="project-window">CRYPTEX / DASHBOARD</span>
-									<div class="project-overlay">
-										<span>CRYPTEX / 2026</span>
-										<h3>Market, made readable.</h3>
-										<p>
-											Built with Coingecko API.
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="work-bottom">
-								<div class="tags">
-									<span class="tag">JAVASCRIPT</span
-									><span class="tag">NODE.JS</span
-									><span class="tag">EXPRESS</span><span class="tag">EJS</span
-									><span class="tag">REST API</span>
-								</div>
-								<div class="links">
-									<a href="https://cryptex-app.vercel.app/" target="_blank" rel="noreferrer">LIVE ↗</a><a href="https://github.com/AjKadri/Cryptex" target="_blank" rel="noreferrer">SOURCE ↗</a>
-								</div>
-							</div>
-						</article>
-						<article class="work">
-							<div class="work-head">
-								<div class="number">02</div>
-								<div>
-									<h3 class="work-title">Campaign Watcher</h3>
-									<p class="work-desc">
-										An automation tool I built to monitor campaigns on a
-										particular website and reduce the amount of repetitive
-										checking I had to do manually.
-									</p>
-								</div>
-								<div class="year">2026</div>
-							</div>
-							<div class="screenshot">
-								<div class="project-visual">
-									<img
-										src="./images/campaign-watcher.jpg"
-										width="1400"
-										height="933"
-										alt="Campaign Watcher monitoring system"
-										loading="lazy"
-									/><span class="project-number">02 / 04</span
-									><span class="project-window"
-										>CAMPAIGN WATCHER / MONITORING TOOL</span
-									>
-									<div class="project-overlay">
-										<span>CAMPAIGN WATCHER / 2026</span>
-										<h3>Watching the work.</h3>
-										<p>
-											The tool monitors campaigns on the website and sends notifications
-                                            when new ones are detected.
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="work-bottom">
-								<div class="tags">
-									<span class="tag">NODE.JS</span
-									><span class="tag">JAVASCRIPT</span
-									><span class="tag">AUTOMATION</span
-									><span class="tag">PLAYWRIGHT</span
-									><span class="tag">REST API</span>
-								</div>
-								<div class="links">
-									<!-- <a href="#" target="_blank" rel="noreferrer">LIVE ↗</a> -->
-									<a href="https://github.com/AjKadri/Campaign-Watcher" target="_blank" rel="noreferrer">SOURCE ↗</a>
-								</div>
-							</div>
-						</article>
-						<article class="work">
-							<div class="work-head">
-								<div class="number">03</div>
-								<div>
-									<h3 class="work-title">Be My Val</h3>
-									<p class="work-desc">
-										A website I built to ask my crush to be my valentine.
-									</p>
-								</div>
-								<div class="year">2026</div>
-							</div>
-							<div class="screenshot">
-								<div class="project-visual">
-									<img
-										src="./images/bemyval.jpg"
-										width="1400"
-										height="825"
-										alt="Be My Val valentine website"
-										loading="lazy"
-									/><span class="project-number">03 / 04</span
-									><span class="project-window">BE MY VAL / WEBSITE</span>
-									<div class="project-overlay">
-										<span>Be My Val / 2026</span>
-										<h3>Love is in the air.</h3>
-										<p>
-                                            What started as a simple idea turned into a small project that taught me more about web development and creativity.
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="work-bottom">
-								<div class="tags">
-									<span class="tag">HTML</span><span class="tag">CSS</span
-									><span class="tag">JAVASCRIPT</span>
-								</div>
-								<div class="links">
-									<a href="https://bemyval.pxxl.click/" target="_blank" rel="noreferrer">LIVE ↗</a
-									><a href="https://github.com/AjKadri/Valentine-2026" target="_blank" rel="noreferrer">SOURCE ↗</a>
-								</div>
-							</div>
-						</article>
-						<article class="work">
-							<div class="work-head">
-								<div class="number">04</div>
-								<div>
-									<h3 class="work-title">My First Portfolio</h3>
-									<p class="work-desc">
-										My first proper attempt at making a personal site.</br>
-                                        I remember how excited I was to finally have a place to show off my work.
-									</p>
-								</div>
-								<div class="year">2025</div>
-							</div>
-							<div class="screenshot">
-								<div class="project-visual">
-									<img
-										src="./images/old-portfolio.jpg"
-										width="1400"
-										height="825"
-										alt="AJ's earlier portfolio website"
-										loading="lazy"
-									/><span class="project-number">04 / 04</span
-									><span class="project-window">OLD VERSION / PORTFOLIO</span>
-									<div class="project-overlay">
-										<span>MY FIRST PORTFOLIO / 2025</span>
-										<h3>Version one.</h3>
-										<p>
-											The beginning of my journey into software development and web design.
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="work-bottom">
-								<div class="tags">
-									<span class="tag">HTML</span><span class="tag">CSS</span
-									><span class="tag">JAVASCRIPT</span>
-								</div>
-								<div class="links">
-									<a href="https://github.com/AjKadri/HTML-Portfolio" target="_blank" rel="noreferrer">SOURCE ↗</a>
-								</div>
-							</div>
-						</article>
-					</div>
+					<div class="work-list" id="work-list"></div>
+					<p class="also">Also built: <a href="https://bemyval.pxxl.click/" target="_blank" rel="noreferrer">Be My Val ↗</a>, a small site I made to ask someone to be my valentine. It worked.</p>
 				</section>
-				<!-- <section class="section" id="notes">
-					<div class="section-head">
-						<h2 class="section-title">Notes.</h2>
-						<p class="section-desc">
-							Short things I've learned by actually making things instead of
-							only reading about them.
-						</p>
-					</div>
-					<div class="notes">
-						<div class="notes-copy">
-							<span class="sq"></span><br /><br />I keep these around because
-							the small lessons tend to survive longer than the tutorials that
-							taught them.
-						</div>
-						<div class="note-list">
-							<div class="note">
-								<span class="note-num">01</span>
-								<p>
-									Good UI is often a series of things you decide not to add.
-								</p>
-							</div>
-							<div class="note">
-								<span class="note-num">02</span>
-								<p>
-									Responsive design has a talent for finding problems I didn't
-									notice on desktop.
-								</p>
-							</div>
-							<div class="note">
-								<span class="note-num">03</span>
-								<p>
-									External APIs deserve skepticism. They don't know your UI has
-									deadlines.
-								</p>
-							</div>
-							<div class="note">
-								<span class="note-num">04</span>
-								<p>
-									Framework knowledge sticks better after you've had to debug it
-									yourself.
-								</p>
-							</div>
-						</div>
-					</div>
-				</section> -->
 				<section class="section" id="about">
 					<div class="section-head">
 						<h2 class="section-title">About.</h2>
 						<p class="section-desc">
-							A short version, because the projects are a better introduction.
+							The short version. The work above says more.
 						</p>
 					</div>
 					<div class="about">
 						<div class="about-copy">
 							<p>
-								I'm AJ Kadri, a Computer Science graduate and software developer
-								focused on building solutions to problems that make life harder than it needs to be.
+								I'm AJ Kadri, a Computer Science graduate and web developer in
+								Lagos. I build things people actually use: clean interfaces on
+								the outside, solid systems underneath.
 							</p>
 							<p>
-								Most of my recent work has been about turning ideas into working
-								interfaces, understanding what happens behind them, and getting
-								better at software development one project at a time.
+								I ship fast. Most of the products above went from idea to live
+								in days, built against real deadlines for international
+								hackathons.
 							</p>
 							<p>
-								I care about how things feel to use, but I also want to
-								understand the systems underneath them.
+								I care how a site feels on a cheap phone on a slow network as
+								much as how it looks on a big screen.
 							</p>
 						</div>
 						<div class="timeline">
-							<div class="row">
-								<small>EDUCATION</small><span>B.Sc Computer Science</span>
-							</div>
-							<div class="row">
-								<small>FRONTEND</small
-								><span>HTML, Tailwind CSS, JavaScript</span>
-							</div>
-							<div class="row">
-								<small>BACKEND</small
-								><span>Node.js, Express, EJS, REST APIs</span>
-							</div>
-							<div class="row">
-								<small>CURRENT</small
-								><span>Building toward a career in software development</span>
-							</div>
+							<div class="row"><small>EDUCATION</small><span>B.Sc Computer Science</span></div>
+							<div class="row"><small>FRONTEND</small><span>HTML, CSS, Tailwind, JavaScript, React</span></div>
+							<div class="row"><small>BACKEND</small><span>Node.js, Express, REST APIs, databases</span></div>
+							<div class="row"><small>ALSO</small><span>Web3 (Solana, Base), AI integrations, automation</span></div>
+							<div class="row"><small>NOW</small><span>Taking on client projects · open to frontend and full-stack roles</span></div>
 						</div>
-					</div>
-				</section>
-				<section class="section">
-					<div class="section-head">
-						<h2 class="section-title">Currently Building With</h2>
-					</div>
-					<div class="stack">
-						<span>REACT</span><span>TAILWIND CSS</span><span>JAVASCRIPT</span
-						><span>NODE.JS</span><span>EXPRESS</span><span>EJS</span>
-						<span>REST APIS</span><span>GIT</span><span>GITHUB</span>
 					</div>
 				</section>
 				<section class="contact" id="contact">
-					<div><span class="sq"></span><span class="label">CONTACT</span></div>
 					<div>
-						<h2>Want to build something?</h2>
-						<p>
-							I'm open to software and web development roles, building interesting products,
-							and conversations about building on the web.
-						</p>
-						<a class="email" href="mailto:ajkadri.dev@gmail.com">Send me an email ↗</a>
-						<div class="social">
-							<a href="https://github.com/AjKadri" target="_blank">GITHUB ↗</a
-							><a href="https://x.com/web3aj_" target="_blank">X ↗</a>
+						<span class="sq"></span><span class="label">CONTACT</span>
+						<h2>Let's build yours.</h2>
+						<p>Tell me what you need. I'll reply within a day with next steps and a rough quote.</p>
+					</div>
+					<form class="cform" id="contact-form" novalidate>
+						<div class="cgrid">
+							<label>Your name<input name="name" maxlength="80" required autocomplete="name" /></label>
+							<label>Email or phone<input name="contact" maxlength="120" required autocomplete="email" /></label>
+							<label>What do you need?
+								<select name="type">
+									<option>Business website</option><option>Landing page</option><option>Web app / dashboard</option><option>Redesign</option><option>Something else</option>
+								</select>
+							</label>
+							<label>Budget
+								<select name="budget">
+									<option>Not sure yet</option><option>Under ₦300k</option><option>₦300k – ₦1M</option><option>₦1M+</option><option>USD project</option>
+								</select>
+							</label>
 						</div>
+						<label>About the project<textarea name="message" rows="5" maxlength="2000" required placeholder="What's the business, what should the site do, any deadline?"></textarea></label>
+						<label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" /></label>
+						<div class="cfoot">
+							<button class="btn primary" type="submit" id="contact-submit">Send message ↗</button>
+							<span class="cstatus" id="contact-status" role="status"></span>
+						</div>
+					</form>
+				</section>
+				<section class="hire" id="hire">
+					<div><small class="label">HIRING?</small><h3>Open to frontend and full-stack roles.</h3></div>
+					<div class="hire-links">
+						<a class="btn primary" href="mailto:aj@ajkadri.dev">aj@ajkadri.dev ↗</a
+						><a class="btn" id="cv-link" href="/cv.pdf" target="_blank" hidden>Download CV ↓</a
+						><a class="btn" href="https://github.com/AjKadri" target="_blank" rel="noreferrer">GitHub ↗</a
+						><a class="btn" href="https://x.com/web3aj_" target="_blank" rel="noreferrer">X ↗</a>
 					</div>
 				</section>
 			</main>
@@ -1226,8 +1055,8 @@
 				</div>
 			</div>
 			<div class="chat-suggestions" aria-label="Suggested questions">
-				<button class="chat-suggestion" type="button" data-chat-question="Who is AJ?">WHO IS AJ?</button>
-				<button class="chat-suggestion" type="button" data-chat-question="Tell me about Campaign Watcher.">CAMPAIGN WATCHER</button>
+				<button class="chat-suggestion" type="button" data-chat-question="How do I start a project with AJ?">START A PROJECT</button>
+				<button class="chat-suggestion" type="button" data-chat-question="What kind of websites can AJ build for me?">CAN AJ BUILD MY SITE?</button>
 				<button class="chat-suggestion" type="button" data-chat-question="What technologies does AJ use?">TECH STACK</button>
 			</div>
 			<form class="chat-form" id="chat-form">
@@ -1272,6 +1101,7 @@
 				}
 			});
 		</script>
+		<script src="./assets/work.js"></script>
 		<script src="./assets/chat.js"></script>
 	</body>
 </html>
