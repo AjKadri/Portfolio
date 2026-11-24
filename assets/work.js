@@ -29,6 +29,15 @@ const PROJECTS = [
 		poster: "linear-gradient(135deg,#052e16 0%,#065f46 50%,#facc15 130%)",
 	},
 	{
+		slug: "flatstock", name: "Flatstock", year: 2026, kind: "INVESTING / ROBINHOOD CHAIN",
+		headline: "Buy what the community picked.",
+		desc: "Holders vote each week on a basket of US stocks, then buy the whole basket, or a custom mix, in one signature. The stock tokens go straight to their own wallet, and they can sell back anytime.",
+		event: "WORLD IS FLAT HACKATHON",
+		tags: ["ROBINHOOD CHAIN", "SMART CONTRACTS", "CHAINLINK", "UNISWAP"],
+		live: "https://flatstock.ajkadri.dev",
+		poster: "linear-gradient(135deg,#052e16 0%,#15803d 55%,#bef264 100%)",
+	},
+	{
 		slug: "cryptex", name: "Cryptex", year: 2026, kind: "DASHBOARD",
 		headline: "Market, made readable.",
 		desc: "A crypto dashboard built around live market data, search, watchlists and clear market information.",
