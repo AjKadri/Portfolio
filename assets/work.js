@@ -33,7 +33,7 @@ const PROJECTS = [
 		headline: "Market, made readable.",
 		desc: "A crypto dashboard built around live market data, search, watchlists and clear market information.",
 		tags: ["JAVASCRIPT", "NODE.JS", "EXPRESS", "COINGECKO API"],
-		live: "https://cryptex-app.vercel.app/", source: "https://github.com/AjKadri/Cryptex",
+		live: "https://cryptex.ajkadri.dev", source: "https://github.com/AjKadri/Cryptex",
 		image: "./images/cryptex.jpg",
 	},
 	{
